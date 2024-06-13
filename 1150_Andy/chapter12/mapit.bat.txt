@@ -1,0 +1,2 @@
+@py.exe C:\Users\marky\PycharmProjects\mapit.py %*
+@pause

@@ -1,0 +1,820 @@
+
+ 
+ 
+ 
+ POODLE - Wikipedia 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Jump to content 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Main menu 
+ 
+ 
+ 
+ 
+ 
+ Main menu 
+ move to sidebar 
+ hide 
+ 
+ 
+ 
+		Navigation
+	 
+ 
+ 
+ Main page Contents Current events Random article About Wikipedia Contact us Donate 
+ 
+ 
+ 
+ 
+ 
+		Contribute
+	 
+ 
+ 
+ Help Learn to edit Community portal Recent changes Upload file 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Search 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Search 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Create account 
+ 
+ Log in 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Personal tools 
+ 
+ 
+ 
+ 
+ 
+   Create account   Log in 
+ 
+ 
+ 
+ 
+ 
+		Pages for logged out editors  learn more 
+ 
+ 
+ 
+ Contributions Talk 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Contents 
+ move to sidebar 
+ hide 
+ 
+ 
+ 
+ 
+ (Top) 
+ 
+ 
+ 
+ 
+ 
+ 1 Prevention 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 2 POODLE attack against TLS 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 3 References 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 4 External links 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Toggle the table of contents 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ POODLE 
+ 
+ 
+ 
+ 11 languages 
+ 
+ 
+ 
+ 
+ Čeština Deutsch Español Français 한국어 עברית 日本語 Polski Русский Türkçe 中文 
+ 
+ Edit links 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Article Talk 
+ 
+ 
+ 
+ 
+ 
+ English 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Read Edit View history 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Tools 
+ 
+ 
+ 
+ 
+ 
+ Tools 
+ move to sidebar 
+ hide 
+ 
+ 
+ 
+		Actions
+	 
+ 
+ 
+ Read Edit View history 
+ 
+ 
+ 
+ 
+ 
+		General
+	 
+ 
+ 
+ What links here Related changes Upload file Special pages Permanent link Page information Cite this page Get shortened URL Download QR code Wikidata item 
+ 
+ 
+ 
+ 
+ 
+		Print/export
+	 
+ 
+ 
+ Download as PDF Printable version 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ From Wikipedia, the free encyclopedia 
+ 
+ 
+ Form of message tampering 
+ This article is about the security vulnerability. For the dog breed, see  poodle . 
+ 
+ 
+ POODLE CVE identifier(s) CVE-2014-3566 Date discovered October 14, 2014 ; 9 years ago  ( 2014-10-14 ) Discoverer Bodo Möller, Thai Duong, Krzysztof Kotowicz ( Google  Security Team) Affected software Any software that supports a fallback to  SSL 3.0 
+ POODLE  (which stands for " Padding Oracle On Downgraded Legacy Encryption ") is a  security vulnerability  which takes advantage of the fallback to  SSL 3.0 . [1] [2] [3]  If attackers successfully exploit this vulnerability, on average, they only need to make 256 SSL 3.0 requests to reveal one byte of encrypted messages. Bodo Möller, Thai Duong and Krzysztof Kotowicz from the  Google  Security Team discovered this vulnerability; they disclosed the vulnerability publicly on October 14, 2014 (despite the paper being dated "September 2014"  [1] ). [4]  On December 8, 2014, a variation of the POODLE vulnerability that affected  TLS  was announced. [5] 
+ The  CVE-ID  associated with the original POODLE attack is  CVE - 2014-3566 .
+F5 Networks filed for  CVE - 2014-8730  as well, see  POODLE attack against TLS  section below.
+ 
+ 
+ Prevention [ edit ] 
+ To mitigate the POODLE attack, one approach is to completely disable SSL 3.0 on the client side and the server side. However, some old clients and servers do not support TLS 1.0 and above. Thus, the authors of the paper on POODLE attacks also encourage browser and server implementation of TLS_FALLBACK_SCSV, [6]  which will make downgrade attacks impossible. [1] [7] 
+ Another mitigation is to implement "anti-POODLE record splitting". It splits the records into several parts and ensures none of them can be attacked. However the problem of the splitting is that, though valid according to the specification, it may also cause compatibility issues due to problems in server-side implementations. [8] 
+ A full list of browser versions and levels of vulnerability to different attacks (including POODLE) can be found in the article  Transport Layer Security .
+ Opera  25 implemented this mitigation in addition to TLS_FALLBACK_SCSV. [9] 
+ Google's  Chrome  browser and their servers had already supported TLS_FALLBACK_SCSV. Google stated in October 2014 it was planning to remove SSL 3.0 support from their products completely within a few months. [7]  Fallback to SSL 3.0 has been disabled in Chrome 39, released in November 2014. [10]  SSL 3.0 has been disabled by default in Chrome 40, released in January 2015. [11] 
+ Mozilla  disabled SSL 3.0 in  Firefox  34 and ESR 31.3, which were released in December 2014, and added support of TLS_FALLBACK_SCSV in Firefox 35. [12] 
+ Microsoft  published a security advisory to explain how to disable SSL 3.0 in  Internet Explorer  and  Windows  OS, [13]  and on October 29, 2014, Microsoft released a fix which disables SSL 3.0 in Internet Explorer on Windows Vista / Server 2003 and above and announced a plan to disable SSL 3.0 by default in their products and services within a few months. [14]  Microsoft disabled fallback to SSL 3.0 in Internet Explorer 11 for Protect Mode sites on February 10, 2015, [15]  and for other sites on April 14, 2015. [16] 
+ Apple's  Safari  (on OS X 10.8, iOS 8.1 and later) mitigated against POODLE by removing support for all CBC protocols in SSL 3.0, [17] [18]  however, this left RC4 which is also completely broken by the RC4 attacks in SSL 3.0. [ citation needed ] . POODLE was completely mitigated in OS X 10.11 (El Capitan 2015) and iOS 9 (2015).
+ To prevent the POODLE attack, some web services dropped support of SSL 3.0. Examples include  CloudFlare [19]  and  Wikimedia . [20] 
+ Network Security Services  version 3.17.1 (released on October 3, 2014) and 3.16.2.3 (released on October 27, 2014) introduced support for TLS_FALLBACK_SCSV, [21] [22]  and NSS will disable SSL 3.0 by default in April 2015. [23] [ needs update ]   OpenSSL  versions 1.0.1j, 1.0.0o and 0.9.8zc, released on October 15, 2014, introduced support for TLS_FALLBACK_SCSV. [24]   LibreSSL  version 2.1.1, released on October 16, 2014, disabled SSL 3.0 by default. [25] 
+ 
+ POODLE attack against TLS [ edit ] 
+ A new variant of the original POODLE attack was announced on December 8, 2014.  This attack exploits implementation flaws of  CBC encryption mode  in the TLS 1.0 - 1.2 protocols.  Even though TLS specifications require servers to check the padding, some implementations fail to validate it properly, which makes some servers vulnerable to POODLE even if they disable SSL 3.0. [5]   SSL Pulse showed "about 10% of the servers are vulnerable to the POODLE attack against TLS" before this vulnerability was announced. [26]   The CVE-ID for F5 Networks' implementation bug is  CVE - 2014-8730 .  The entry in NIST's NVD states that this CVE-ID is to be used only for F5 Networks' implementation of TLS, and that other vendors whose products have the same failure to validate the padding mistake in their implementations like  A10 Networks  and  Cisco Systems  need to issue their own CVE-IDs for their implementation errors because this is not a flaw in the protocol but in the implementation.
+ The POODLE attack against TLS was found to be easier to initiate than the initial POODLE attack against SSL.  There is no need to downgrade clients to SSL 3.0, meaning fewer steps are needed to execute a successful attack. [27] 
+ 
+ References [ edit ] 
+ 
+ 
+ ^  a   b   c   Möller, Bodo; Duong, Thai; Kotowicz, Krzysztof (September 2014).  "This POODLE Bites: Exploiting The SSL 3.0 Fallback"   (PDF) . 
+ 
+ ^   Bright, Peter (October 15, 2014).  "SSL broken, again in POODLE attack" . Ars Technica. 
+ 
+ ^   Brandom, Russell (October 14, 2014).  "Google researchers reveal new Poodle bug, putting the web on alert" . 
+ 
+ ^   "Google Online Security Blog: This POODLE bites: exploiting the SSL 3.0 fallback" .  Google Online Security Blog . Retrieved  June 1,  2015 . 
+ 
+ ^  a   b   Langley, Adam (December 8, 2014).  "The POODLE bites again" . Retrieved  December 8,  2014 . 
+ 
+ ^   B. Moeller, A. Langley (April 2015).  "RFC 7507: TLS Fallback Signaling Cipher Suite Value (SCSV) for Preventing Protocol Downgrade Attacks" . IETF.  doi : 10.17487/RFC7507 .   {{ cite journal }} :  Cite journal requires  |journal=  ( help ) 
+ 
+ ^  a   b   Möller, Bodo (October 14, 2014).  "This POODLE bites: exploiting the SSL 3.0 fallback" .  Google Online Security blog . Google (via Blogspot) . Retrieved  October 15,  2014 . 
+ 
+ ^   Langley, Adam (October 14, 2014).  "POODLE attacks on SSLv3" . imperialviolet.org . Retrieved  October 16,  2014 . 
+ 
+ ^   Molland, Håvard (October 15, 2014).  "Security changes in Opera 25; the poodle attacks" .  Opera security blog .  Opera . Retrieved  October 16,  2014 . 
+ 
+ ^   Ilascu, Ionut.  "Chrome 39 Disables SSLv3 Fallback, Awards $41,500 / €33,000 in Bounties" . Softpedia . Retrieved  December 3,  2014 . 
+ 
+ ^   "Issue 693963003: Add minimum TLS version control to about:flags and Finch gate it" .  Chromium Code Reviews . Retrieved  April 16,  2015 . 
+ 
+ ^   "The POODLE Attack and the End of SSL 3.0" .  Mozilla blog . Mozilla. October 14, 2014 . Retrieved  October 15,  2014 . 
+ 
+ ^   "Vulnerability in SSL 3.0 Could Allow Information Disclosure" .  Microsoft TechNet . Microsoft. October 14, 2014 . Retrieved  October 15,  2014 . 
+ 
+ ^   "Security Advisory 3009008 revised" .  Microsoft TechNet . Microsoft. October 29, 2014 . Retrieved  October 30,  2014 . 
+ 
+ ^   Oot, Alec (December 9, 2014).  "December 2014 Internet Explorer security updates & disabling SSL 3.0 fallback" . Microsoft . Retrieved  December 9,  2014 . 
+ 
+ ^   "February 2015 security updates for Internet Explorer" . IEBlog. April 14, 2015 . Retrieved  April 15,  2015 . 
+ 
+ ^   "About Security Update 2014-005" .  apple.com . Retrieved  June 1,  2015 . 
+ 
+ ^   "About the security content of iOS 8.1" .  apple.com . Retrieved  June 1,  2015 . 
+ 
+ ^   Prince, Matthew (October 14, 2014).  "SSLv3 Support Disabled By Default Due to POODLE Vulnerability" .  Cloudflare blog . Cloudflare . Retrieved  October 15,  2014 . 
+ 
+ ^   Bergsma, Mark (October 17, 2014).  "Protecting users against POODLE by removing SSL 3.0 support" .  Wikimedia blog . Wikimedia Foundation . Retrieved  October 17,  2014 . 
+ 
+ ^   "NSS 3.17.1 release notes" . Mozilla. October 3, 2014. Archived from  the original  on April 19, 2019 . Retrieved  October 27,  2014 . 
+ 
+ ^   "NSS 3.16.2.3 release notes" . Mozilla. October 27, 2014. Archived from  the original  on April 19, 2019 . Retrieved  October 27,  2014 . 
+ 
+ ^   "Disable SSL 3 by default in NSS in April 2015" . mozilla.dev.tech.crypto. October 27, 2014 . Retrieved  October 27,  2014 . 
+ 
+ ^   "OpenSSL Security Advisory [15 Oct 2014]" .  OpenSSL . October 15, 2014 . Retrieved  October 20,  2014 . 
+ 
+ ^   "LibreSSL 2.1.1 released" . LibreSSL. October 16, 2014 . Retrieved  October 20,  2014 . 
+ 
+ ^   Ristic, Ivan (December 8, 2014).  "Poodle Bites TLS" . Retrieved  December 8,  2014 . 
+ 
+ ^   Stosh, Brandon (December 8, 2014).  "Nasty POODLE Variant Bypasses TLS Crypto Affecting Over 10 Percent of the Web" . Retrieved  December 8,  2014 . 
+ 
+ 
+ External links [ edit ] 
+ This POODLE Bites: Exploiting TheSSL 3.0 Fallback  - The original publication of POODLE 
+ 1076983 – (POODLE) Padding oracle attack on SSL 3.0  Mozilla Bugzilla 
+ What Is the POODLE Attack?  - Acunetix article explaining POODLE attack algorithm 
+ v t e Hacking in the 2010s 
+ ←  2000s 
+ Timeline 
+ 2020s  → 
+ Major incidents 2010 
+ Operation Aurora  (publication of 2009 events) 
+ Australian cyberattacks 
+ Operation Olympic Games 
+ Operation ShadowNet 
+ Operation Payback 
+ 2011 
+ Canadian government 
+ DigiNotar 
+ DNSChanger 
+ HBGary Federal 
+ Operation AntiSec 
+ PlayStation network outage 
+ RSA SecurID compromise 
+ 2012 
+ LinkedIn hack 
+ Stratfor email leak 
+ Operation High Roller 
+ 2013 
+ South Korea cyberattack 
+ Snapchat hack 
+ Cyberterrorism Attack of June 25 
+ 2013 Yahoo! data breach 
+ Singapore cyberattacks 
+ 2014 
+ Anthem medical data breach 
+ Operation Tovar 
+ 2014 celebrity nude photo leak 
+ 2014 JPMorgan Chase data breach 
+ 2014 Sony Pictures hack 
+ Russian hacker password theft 
+ 2014 Yahoo! data breach 
+ 2015 
+ Office of Personnel Management data breach 
+ Hacking Team 
+ Ashley Madison data breach 
+ VTech data breach 
+ Ukrainian Power Grid Cyberattack 
+ SWIFT banking hack 
+ 2016 
+ Bangladesh Bank robbery 
+ Hollywood Presbyterian Medical Center ransomware incident 
+ Commission on Elections data breach 
+ Democratic National Committee cyber attacks 
+ Vietnam Airport Hacks 
+ DCCC cyber attacks 
+ Indian Bank data breaches 
+ Surkov leaks 
+ Dyn cyberattack 
+ Russian interference in the 2016 U.S. elections 
+ 2016 Bitfinex hack 
+ 2017 
+ SHAttered 
+ 2017 Macron e-mail leaks 
+ WannaCry ransomware attack 
+ Westminster data breach 
+ Petya and NotPetya 
+ 2017 Ukraine ransomware attacks 
+ Vault7 data breach 
+ Equifax data breach 
+ Deloitte breach 
+ Disqus breach 
+ 2018 
+ Trustico 
+ Atlanta cyberattack 
+ SingHealth data breach 
+ 2019 
+ Sri Lanka cyberattack 
+ Baltimore ransomware attack 
+ Bulgarian revenue agency hack 
+ WhatsApp snooping scandal 
+ Jeff Bezos phone hacking incident 
+ Hacktivism 
+ Anonymous 
+ associated events 
+ CyberBerkut 
+ GNAA 
+ Goatse Security 
+ Lizard Squad 
+ LulzRaft 
+ LulzSec 
+ New World Hackers 
+ NullCrew 
+ OurMine 
+ PayPal 14 
+ RedHack 
+ Teamp0ison 
+  TDO  
+ UGNazi 
+ Ukrainian Cyber Alliance 
+ Advanced persistent threats 
+ Bangladesh Black Hat Hackers 
+ Bureau 121 
+ Charming Kitten 
+ Cozy Bear 
+ Dark Basin 
+ DarkMatter 
+ Elfin Team 
+ Equation Group 
+ Fancy Bear 
+ GOSSIPGIRL  (confederation) 
+ Guccifer 2.0 
+ Hacking Team 
+ Helix Kitten 
+ Iranian Cyber Army 
+ Lazarus Group  ( BlueNorOff ) ( AndAriel ) 
+ NSO Group 
+ Numbered Panda 
+ PLA Unit 61398 
+ PLA Unit 61486 
+ PLATINUM 
+ Pranknet 
+ Red Apollo 
+ Rocket Kitten 
+ Stealth Falcon 
+ Syrian Electronic Army 
+ Tailored Access Operations 
+ The Shadow Brokers 
+ Yemen Cyber Army 
+ Individuals 
+ George Hotz 
+ Guccifer 
+ Jeremy Hammond 
+ Junaid Hussain 
+ Kristoffer von Hassel 
+ Mustafa Al-Bassam 
+ MLT 
+ Ryan Ackroyd 
+ Sabu 
+ Topiary 
+ Track2 
+ The Jester 
+ Major  vulnerabilities publicly  disclosed 
+ Evercookie  (2010) 
+ iSeeYou  (2013) 
+  Heartbleed  (2014) 
+ Shellshock  (2014) 
+ POODLE  (2014) 
+ Rootpipe  (2014) 
+ Row hammer  (2014) 
+ SS7 vulnerabilities  (2014) 
+ JASBUG  (2015) 
+ Stagefright  (2015) 
+ DROWN  (2016) 
+ Badlock  (2016) 
+ Dirty COW  (2016) 
+ Cloudbleed  (2017) 
+ Broadcom Wi-Fi  (2017) 
+ EternalBlue  (2017) 
+ DoublePulsar  (2017) 
+ Silent Bob is Silent  (2017) 
+ KRACK  (2017) 
+ ROCA vulnerability  (2017) 
+ BlueBorne  (2017) 
+ Meltdown  (2018) 
+ Spectre  (2018) 
+ EFAIL  (2018) 
+ Exactis  (2018) 
+ Speculative Store Bypass  (2018) 
+ Lazy FP state restore  (2018) 
+ TLBleed  (2018) 
+ SigSpoof  (2018) 
+ Foreshadow  (2018) 
+ Dragonblood  (2019) 
+ Microarchitectural Data Sampling  (2019) 
+ BlueKeep  (2019) 
+ Kr00k  (2019) 
+ Malware 2010 
+ Bad Rabbit 
+  Black Energy 2 
+ SpyEye 
+ Stuxnet 
+ 2011 
+ Coreflood 
+ Alureon 
+ Duqu 
+ Kelihos 
+ Metulji botnet 
+ Stars 
+ 2012 
+ Carna 
+ Dexter 
+ FBI 
+ Flame 
+ Mahdi 
+ Red October 
+ Shamoon 
+ 2013 
+ CryptoLocker 
+ DarkSeoul 
+ 2014 
+ Brambul 
+  Black Energy 3 
+ Carbanak 
+ Careto 
+ DarkHotel 
+ Duqu 2.0 
+ FinFisher 
+ Gameover ZeuS 
+ Regin 
+ 2015 
+ Dridex 
+ Hidden Tear 
+ Rombertik 
+ TeslaCrypt 
+ 2016 
+ Hitler 
+ Jigsaw 
+ KeRanger 
+ Necurs 
+ MEMZ 
+ Mirai 
+ Pegasus 
+ Petya and NotPetya 
+ X-Agent 
+ 2017 
+ BrickerBot 
+ Kirk 
+ LogicLocker 
+ Rensenware 
+ Triton 
+ WannaCry 
+ XafeCopy 
+ 2018 
+ VPNFilter 
+ 2019 
+ Grum 
+ Joanap 
+ NetTraveler 
+ R2D2 
+ Tinba 
+ Titanium 
+ ZeroAccess botnet 
+ 
+ v t e TLS and SSL Protocols and technologies 
+ Transport Layer Security / Secure Sockets Layer  (TLS/SSL) 
+ Datagram Transport Layer Security  (DTLS) 
+ Server Name Indication  (SNI) 
+ Application-Layer Protocol Negotiation  (ALPN) 
+ DNS-based Authentication of Named Entities  (DANE) 
+ DNS Certification Authority Authorization  (CAA) 
+ HTTPS 
+ HTTP Strict Transport Security  (HSTS) 
+ HTTP Public Key Pinning  (HPKP) 
+ OCSP stapling 
+ Opportunistic TLS 
+ Perfect forward secrecy 
+ Public-key infrastructure 
+ Automated Certificate Management Environment  (ACME) 
+ Certificate authority  (CA) 
+ CA/Browser Forum 
+ Certificate policy 
+ Certificate revocation 
+ Certificate revocation list  (CRL) 
+ Online Certificate Status Protocol  (OCSP) 
+ OCSP stapling 
+ Domain-validated certificate  (DV) 
+ Extended Validation Certificate  (EV) 
+ Public key certificate 
+ Public-key cryptography 
+ Public key infrastructure  (PKI) 
+ Root certificate 
+ Self-signed certificate 
+ See also 
+ Domain Name System Security Extensions  (DNSSEC) 
+ Internet Protocol Security  (IPsec) 
+ Secure Shell  (SSH) 
+ History 
+ Export of cryptography from the United States 
+ Server-Gated Cryptography 
+ Implementations 
+ Bouncy Castle 
+ BoringSSL 
+ Botan 
+ BSAFE 
+ cryptlib 
+ GnuTLS 
+ JSSE 
+ LibreSSL 
+ MatrixSSL 
+ mbed TLS 
+ NSS 
+ OpenSSL 
+ s2n 
+ SChannel 
+ SSLeay 
+ stunnel 
+ wolfSSL 
+ Notaries 
+ Certificate Transparency 
+ Convergence 
+ HTTPS Everywhere 
+ Perspectives Project 
+ Vulnerabilities Theory 
+ Man-in-the-middle attack 
+ Padding oracle attack 
+ Cipher 
+ Bar mitzvah attack 
+ Protocol 
+ BEAST 
+ BREACH 
+ CRIME 
+ DROWN 
+ Logjam 
+ POODLE  (in regards to SSL 3.0) 
+ Implementation 
+ Certificate authority compromise 
+ Random number generator attacks 
+ FREAK 
+ goto fail 
+ Heartbleed 
+ Lucky Thirteen attack 
+ POODLE  (in regards to TLS 1.0) 
+ Kazakhstan MITM attack 
+ 
+ 
+ 
+ 
+ 
+ Retrieved from " https://en.wikipedia.org/w/index.php?title=POODLE&oldid=1210319305 " 
+ Categories :  Internet security Web security exploits Cryptography Transport Layer Security Computer security exploits Hidden categories:  CS1 errors: missing periodical Articles with short description Short description is different from Wikidata Use mdy dates from October 2014 All articles with unsourced statements Articles with unsourced statements from June 2017 Wikipedia articles in need of updating from October 2018 All Wikipedia articles in need of updating 
+ 
+ 
+ 
+ 
+ 
+ 
+  This page was last edited on 26 February 2024, at 01:39  (UTC) . 
+ Text is available under the  Creative Commons Attribution-ShareAlike License 4.0 ;
+additional terms may apply. By using this site, you agree to the  Terms of Use  and  Privacy Policy . Wikipedia® is a registered trademark of the  Wikimedia Foundation, Inc. , a non-profit organization. 
+ 
+ 
+ Privacy policy 
+ About Wikipedia 
+ Disclaimers 
+ Contact Wikipedia 
+ Code of Conduct 
+ Developers 
+ Statistics 
+ Cookie statement 
+ Mobile view 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Toggle limited content width 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

@@ -1,0 +1,7 @@
+Type	Name	Taste Profile
+Cider	Honey Crisp Hard Cider	Apple
+Ale	Pale Ale	Malt
+Lager	Budweiser	Malt
+Hybrid	Stone IPA	Piney
+Mead	Viking Blod	Honey
+Wine	Apothic Red	Black Cherry
