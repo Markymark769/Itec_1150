@@ -14,7 +14,7 @@ pdfWriter = PyPDF2.PdfFileWriter()
 
 # Get all the PDF filenames
 pdfFiles = []
-for filename in os.listdir('.'):
+for filename in os.listdir(''):
     if filename.endswith('.pdf'):
         pdfFiles.append(filename)
 # pdfFiles.sort(key = str.lower)
@@ -31,7 +31,7 @@ for pageNum in range(1, pdfReader.numPages):
     pdfWriter.addPage(pageObj)
 
 # Save the resulting PDF to a file
-pdfOutput = open('Combinedminutes.pdf','wb')
+pdfOutput = open('Combinedminutes.pdf', 'wb')
 pdfWriter.write(pdfOutput)
 pdfOutput.close()
 

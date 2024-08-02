@@ -16,7 +16,7 @@ import os
 # print('Results of running: os getcwd()')
 # proj_dir
 
-os.chdir('D:\PycharmProjects')
+os.chdir('/')
 print(f'current directory: {os.getcwd()}')
 
 # know the difference between writing and append

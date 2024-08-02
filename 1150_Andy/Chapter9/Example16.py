@@ -1,7 +1,7 @@
 
 import os
 if os.path.isfile('party_invites.txt') is False:  # turn off-line if you DON'T want to keep file between runs
-    invite_file = open('party_invites.txt','w')  # 'w' for write
+    invite_file = open('party_invites.txt', 'w')  # 'w' for write
     invite_file.write('Hostess - Betty Boop\n') # initialize a txt file
     invite_file.close()
 

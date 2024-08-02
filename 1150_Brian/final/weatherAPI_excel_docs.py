@@ -4,7 +4,7 @@ weather API.py
 this program makes a call to a weather API, places them into an excel file
 next step is to place in function
 """
-import openpyxl
+# import openpyxl
 import requests
 import docx
 
@@ -32,23 +32,26 @@ for hourly_data in list_of_weather_conditions:
 # set up for things in the docx
 
 weather_word_document = docx.Document()
-weather_word_document.add_paragraph('Current Weather Data')
+weather_word_document.add_paragraph('Current Weather Data', 'Title')
 row = 4
-for time, temperature_2m, relative_humidity_2m, wind_speed_10m in list_of_weather_conditions:
-    weather_word_document.add_paragraph('')
+for time, temperature_2m, relative_humidity_2m, wind_speed_10m in weather.items():
+    weather_word_document.add_paragraph('The hourly data for time is the following', time)
+    weather_word_document.add_paragraph('The hourly data for the temperature is the following', temperature_2m)
+    weather_word_document.add_paragraph('The hourly data for humidity is the following', relative_humidity_2m)
+    weather_word_document.add_paragraph('The hourly data for wind speed is the following', wind_speed_10m)
 
 weather_word_document.save('Current Weather.docx')
 
-# setup spreadsheet stuff
-workbook = openpyxl.Workbook()
-worksheet = workbook.active
-worksheet.title = 'Weather API'
-worksheet.cell(1, 1, 'Time')
-worksheet.cell(1, 2, 'Temperature')
-worksheet.cell(1, 3, 'Humidity')
-worksheet.cell(1, 4, 'Wind Speed')
-
-worksheet.column_dimensions['A'].width = 40     # width for column A
-worksheet.column_dimensions['B'].width = 50     # width for column B
-
-workbook.save()
+# # setup spreadsheet stuff
+# workbook = openpyxl.Workbook()
+# worksheet = workbook.active
+# worksheet.title = 'Weather API'
+# worksheet.cell(1, 1, 'Time')
+# worksheet.cell(1, 2, 'Temperature')
+# worksheet.cell(1, 3, 'Humidity')
+# worksheet.cell(1, 4, 'Wind Speed')
+#
+# worksheet.column_dimensions['A'].width = 40     # width for column A
+# worksheet.column_dimensions['B'].width = 50     # width for column B
+#
+# workbook.save()

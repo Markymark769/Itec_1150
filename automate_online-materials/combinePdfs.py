@@ -6,7 +6,7 @@ import PyPDF2, os
 
 # Get all the PDF filenames.
 pdfFiles = []
-for filename in os.listdir('.'):
+for filename in os.listdir(''):
     if filename.endswith('.pdf'):
         pdfFiles.append(filename)
 pdfFiles.sort()

@@ -7,7 +7,7 @@ import csv, os
 os.makedirs('headerRemoved', exist_ok=True)
 
 # Loop through every file in the current working directory.
-for csvFilename in os.listdir('.'):
+for csvFilename in os.listdir(''):
     if not csvFilename.endswith('.csv'):
         continue # skip non-csv files
 

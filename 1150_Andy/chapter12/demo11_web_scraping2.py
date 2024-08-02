@@ -22,7 +22,7 @@ def main():
     # Set source URL where poem is located.
     str_url = "http://allpoetry.com/Do-Not-Go-Gentle-Into-That-Good-Night"
     # Set filename
-    str_filename = "DoNotGoGentle.txt"                                  # set filename to save contents to
+    str_filename = "DoNotGoGentle.txt"  # set filename to save contents to
 
     try:
         # Display status messages

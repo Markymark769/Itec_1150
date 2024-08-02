@@ -14,7 +14,7 @@ os.makedirs('headerRemoved', exist_ok=True)
 # Loop through every file in the current working directory.
 # Loop through every file using the list directory
 # current working directory by using the dot notation
-for csvFilename in os.listdir('.'):
+for csvFilename in os.listdir(''):
     if not csvFilename.endswith('.csv'): # scanning for csv file
         continue        # skip non-csv files
 
