@@ -35,7 +35,7 @@ for one_brewery in list_of_random_breweries_chosen:
     url_for_one_brewery_details = f'https://api.openbrewerydb.org/v1/breweries/{brewery_id}'
     # print(url_for_one_brewery_details) --- used for checking
     one_brewery_details_response = requests.get(url_for_one_brewery_details)
-    # print(one_brewery_details_response) --- used for checking
+    print(one_brewery_details_response) # --- used for checking
 
     if one_brewery_details_response.status_code == 200:  # if status code is 200, which means that request has succeeded
         one_brewery_details = one_brewery_details_response.json()  # get the details response from the chosen ['id']

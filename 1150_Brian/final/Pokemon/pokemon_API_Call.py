@@ -11,7 +11,7 @@ list_of_pokemon = response_list_of_Pokemon_stats['results']  # this pulls out th
 # to get the value
 
 # Get a sample of how many random Pokémon, in this case it is 10
-list_of_random_pokemon = random.sample(list_of_pokemon, 10)
+list_of_random_pokemon = random.sample(list_of_pokemon, 20)
 print(list_of_random_pokemon)
 
 # # step 3
