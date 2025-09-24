@@ -1,0 +1,143 @@
+<?php
+//
+// API Status Dashlet
+// Copyright (c) 2023 Nagios Enterprises, LLC. All rights reserved.
+//
+
+include_once(dirname(__FILE__).'/../dashlethelper.inc.php');
+
+// Run the initialization function
+api_status_dashlet_init();
+
+function api_status_dashlet_init()
+{
+    $name = "api_status_dashlet";
+    
+    $args = array(
+        DASHLET_NAME => $name,
+        DASHLET_VERSION => "1.0.0",
+        DASHLET_DATE => "11/20/2023",
+        DASHLET_AUTHOR => "Nagios Enterprises, LLC",
+        DASHLET_DESCRIPTION => _("Checks the health and response time of a specified API endpoint."),
+        DASHLET_COPYRIGHT => "Copyright (c) 2023 Nagios Enterprises, LLC",
+        DASHLET_LICENSE => "BSD",
+        DASHLET_HOMEPAGE => "https://www.nagios.com",
+        DASHLET_REFRESHRATE => 60,
+        DASHLET_FUNCTION => "api_status_dashlet_func",
+        DASHLET_FILTER_GROUPS => array("custom"),
+        DASHLET_TITLE => _("API Status Checker"),
+        DASHLET_OUTBOARD_CLASS=> "api_status_outboardclass",
+        DASHLET_INBOARD_CLASS => "api_status_inboardclass",
+        DASHLET_PREVIEW_CLASS => "api_status_previewclass",
+        DASHLET_WIDTH => "400",
+        DASHLET_HEIGHT => "300",
+    );
+        
+    register_dashlet($name, $args);
+}
+
+function api_status_dashlet_func($mode=DASHLET_MODE_PREVIEW, $id="", $args=null)
+{
+    $output = "";
+
+    switch ($mode) {
+
+        case DASHLET_MODE_GETCONFIGHTML:
+            // Input form for dashlet variables
+            $output='
+            <label for="url">'._('API URL').'</label>
+            <br class="nobr" />
+            <input type="text" class="form-control" name="url" id="url" value="http://">
+            <br class="nobr" />
+            <label for="refresh">'._('Refresh Rate').'</label>
+            <br class="nobr" />
+            <input type="text" class="form-control" name="refresh" id="refresh" value="60"> '._('seconds').'
+            <br class="nobr" />
+            ';
+            break;
+
+        case DASHLET_MODE_OUTBOARD:
+        case DASHLET_MODE_INBOARD:
+            $url = grab_array_var($args, "url");
+            $refresh = grab_array_var($args, "refresh", 60);
+
+            if (empty($url)) {
+                $output = '<div class="alert alert-warning">'._("Please configure an API URL.").'</div>';
+                return $output;
+            }
+
+            $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_HEADER, true);
+            curl_setopt($ch, CURLOPT_NOBODY, true);
+            curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+
+            $start_time = microtime(true);
+            $response = curl_exec($ch);
+            $end_time = microtime(true);
+            
+            $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            $response_time = round(($end_time - $start_time), 3);
+            
+            $curl_error = curl_error($ch);
+            curl_close($ch);
+
+            if ($curl_error) {
+                $status = "down";
+                $status_class = "text-danger";
+                $message = _("Error: Could not connect to the API.");
+                $details = "cURL Error: " . htmlentities($curl_error);
+                $http_code = "N/A";
+            } else if ($http_code >= 200 && $http_code < 300) {
+                $status = "up";
+                $status_class = "text-success";
+                $message = _("The API is healthy and reachable.");
+                $details = "";
+            } else {
+                $status = "down";
+                $status_class = "text-warning";
+                $message = _("The API returned a non-successful HTTP code.");
+                $details = "HTTP Code: " . $http_code;
+            }
+
+            $output = <<<OUTPUT
+            <div class="api-status-dashlet">
+                <table class="table table-condensed table-striped table-bordered">
+                    <tbody>
+                        <tr>
+                            <td><strong>Status:</strong></td>
+                            <td class="{$status_class}"><strong>{$status}</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Response Time:</strong></td>
+                            <td>{$response_time}s</td>
+                        </tr>
+                        <tr>
+                            <td><strong>HTTP Code:</strong></td>
+                            <td>{$http_code}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <small><em>{$message}</em></small>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+OUTPUT;
+            break;
+
+        case DASHLET_MODE_PREVIEW:
+            if(!is_neptune()) {
+                $output="<img src='/nagiosxi/includes/dashlets/api-status-dashlet/preview.png' alt='No Preview Available' />";
+            } else if(get_theme() == 'neptunelight') {
+                $output="<img src='/nagiosxi/includes/dashlets/api-status-dashlet/api_status_dashlet_neptune_light_preview.png' alt='No Preview Available' />";
+            } else {
+                $output="<img src='/nagiosxi/includes/dashlets/api-status-dashlet/neptune_preview.png' alt='No Preview Available' />";
+            }
+            break;
+    }
+
+    return $output;
+}
+?>
